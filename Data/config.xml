@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllSetting>
+    <Subs>
+        <Sub>wallpaper</Sub>
+        <Sub>wallpapers</Sub>
+        <Sub>SkyPorn</Sub>
+        <Sub>EarthPorn</Sub>
+        <Sub>ImaginaryLandscapes</Sub>
+        <Sub>ExposurePorn</Sub>
+        <Sub>ImaginaryTechnology</Sub>
+    </Subs>
+    <Interval>60</Interval>
+</AllSetting>
