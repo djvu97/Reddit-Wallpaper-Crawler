@@ -11,7 +11,7 @@ import time
 import threading
 import sys
 import urllib.request
-
+from PIL import Image
 
 TRAY_TOOLTIP = 'Reddit Wallpaper Crawler'
 TRAY_ICON = 'Data/icon.png'
@@ -45,6 +45,9 @@ def WallpaperDownloader(number, Subs, AllWallpaper):
                     selectedlink, "Normal\\"+CURRENT_PIC)
             except:
                 return
+            resolution = Image.open("Normal\\"+CURRENT_PIC)
+            if(resolution.size[0]/resolution.size[1] < 1):
+                return False
             ctypes.windll.user32.SystemParametersInfoW(
                 20, 0, os.getcwd()+"\\Normal\\"+timeRightNow+".jpg", 0)
             with open("Normal/Wallpaper.log", "a") as WallpaperLog:
