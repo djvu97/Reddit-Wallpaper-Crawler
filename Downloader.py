@@ -131,7 +131,7 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         str1 = "move /y Normal\\" + CURRENT_PIC+" Favorite\\" + CURRENT_PIC
         subprocess.call(str1, shell=True)
         self.ShowBalloon(title="Reddit Wallpaper Crawler",
-                         text="Image MOved to Favorite Folder", msec=50)
+                         text="Image Moved to Favorite Folder", msec=50)
 
     def requestImage(self, event):
         global WALLPAPERCHANGED
