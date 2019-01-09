@@ -40,6 +40,9 @@ def WallpaperDownloader(number, Subs, AllWallpaper):
             timeRightNow = now.strftime(
                 "%Y-%m-%d-%H%M")+str(random.randint(1, 1024))
             CURRENT_PIC = timeRightNow+".jpg"
+            with open("Normal/Wallpaper.log", "a") as WallpaperLog:
+                WallpaperLog.write(
+                    str(selectedlink)+", " + now.strftime("%Y-%m-%d %H:%M")+","+todaysSub+"\n")
             try:
                 urllib.request.urlretrieve(
                     selectedlink, "Normal\\"+CURRENT_PIC)
@@ -50,9 +53,6 @@ def WallpaperDownloader(number, Subs, AllWallpaper):
                 return False
             ctypes.windll.user32.SystemParametersInfoW(
                 20, 0, os.getcwd()+"\\Normal\\"+timeRightNow+".jpg", 0)
-            with open("Normal/Wallpaper.log", "a") as WallpaperLog:
-                WallpaperLog.write(
-                    str(selectedlink)+", " + now.strftime("%Y-%m-%d %H:%M")+","+todaysSub+"\n")
             return True
     return False
 
