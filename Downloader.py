@@ -37,22 +37,18 @@ def WallpaperDownloader(number, Subs, AllWallpaper):
         if(submission.url not in AllWallpaper and "comment" not in submission.url):
             selectedlink = submission.url
             now = datetime.datetime.now()
-            timeRightNow = now.strftime(
-                "%Y-%m-%d-%H%M")+str(random.randint(1, 1024))
+            timeRightNow = now.strftime("%Y-%m-%d-%H%M")+str(random.randint(1, 1024))
             CURRENT_PIC = timeRightNow+".jpg"
             with open("Normal/Wallpaper.log", "a") as WallpaperLog:
-                WallpaperLog.write(
-                    str(selectedlink)+", " + now.strftime("%Y-%m-%d %H:%M")+","+todaysSub+"\n")
+                WallpaperLog.write(str(selectedlink)+", " + now.strftime("%Y-%m-%d %H:%M")+","+todaysSub+"\n")
             try:
-                urllib.request.urlretrieve(
-                    selectedlink, "Normal\\"+CURRENT_PIC)
+                urllib.request.urlretrieve(selectedlink, "Normal\\"+CURRENT_PIC)
             except:
                 return
             resolution = Image.open("Normal\\"+CURRENT_PIC)
-            if(resolution.size[0]/resolution.size[1] < 1 and resolution.size[0]<3000):
+            if(resolution.size[0]/resolution.size[1] < 1 and resolution.size[0] < 3000):
                 return False
-            ctypes.windll.user32.SystemParametersInfoW(
-                20, 0, os.getcwd()+"\\Normal\\"+timeRightNow+".jpg", 0)
+            ctypes.windll.user32.SystemParametersInfoW(20, 0, os.getcwd()+"\\Normal\\"+timeRightNow+".jpg", 0)
             return True
     return False
 
@@ -106,15 +102,13 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         super(TaskBarIcon, self).__init__()
         self.set_icon(TRAY_ICON)
         self.Bind(wx.adv.EVT_TASKBAR_LEFT_DOWN, self.on_left_down)
-        self.ShowBalloon(title="Welcome to RWC",
-                         text="Your timely wallpaper changer", msec=100)
+        self.ShowBalloon(title="Welcome to RWC", text="Your timely wallpaper changer", msec=100)
 
     def CreatePopupMenu(self):
         menu = wx.Menu()
         create_menu_item(menu, 'New Image', self.requestImage)
         create_menu_item(menu, 'Add To Favorite', self.MoveToFavorite)
-        create_menu_item(menu, 'Remove this image and add new',
-                         self.DeleteCurrent)
+        create_menu_item(menu, 'Remove this image and add new', self.DeleteCurrent)
         menu.AppendSeparator()
         create_menu_item(menu, 'Exit', self.on_exit)
         return menu
@@ -130,14 +124,12 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         global CURRENT_PIC
         str1 = "move /y Normal\\" + CURRENT_PIC+" Favorite\\" + CURRENT_PIC
         subprocess.call(str1, shell=True)
-        self.ShowBalloon(title="Reddit Wallpaper Crawler",
-                         text="Image Moved to Favorite Folder", msec=50)
+        self.ShowBalloon(title="Reddit Wallpaper Crawler", text="Image Moved to Favorite Folder", msec=50)
 
     def requestImage(self, event):
         global WALLPAPERCHANGED
         InitWallpaper()
-        self.ShowBalloon(title="Reddit Wallpaper Crawler",
-                         text="Image Changed", msec=50)
+        self.ShowBalloon(title="Reddit Wallpaper Crawler", text="Image Changed", msec=50)
         WALLPAPERCHANGED = True
 
     def DeleteCurrent(self, event):
@@ -148,8 +140,7 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         command = "del /f "+os.getcwd()+"\\Favorite\\"+CURRENT_PIC
         subprocess.call(command, shell=True)
         InitWallpaper()
-        self.ShowBalloon(title="Reddit Wallpaper Crawler",
-                         text="Image Changed", msec=50)
+        self.ShowBalloon(title="Reddit Wallpaper Crawler", text="Image Changed", msec=50)
         WALLPAPERCHANGED = True
 
     def on_exit(self, event):
