@@ -1,6 +1,6 @@
 @echo off
 python -V 
-If %errorlevel% == 0 (
+If errorlevel 0 (
     pip freeze|findstr praw & if errorlevel 1 (pip install praw)
     pip freeze|findstr wxPython & if errorlevel 1 (pip install -U wxPython)
     pip freeze|findstr PIL & if errorlevel 1 (pip install Pillow)
