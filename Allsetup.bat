@@ -9,6 +9,7 @@ If errorlevel 0 (
     move Data C:\WallPaper\Data
     move Downloader.py C:\WallPaper\Downloader.py
     pythonw "C:\WallPaper\Downloader.py" "C:\WallPaper"
+    exit 0
 ) else (
     echo "Install python Please"
 )
