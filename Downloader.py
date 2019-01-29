@@ -44,7 +44,7 @@ def WallpaperDownloader(number, Subs, AllWallpaper):
             try:
                 urllib.request.urlretrieve(selectedlink, "Normal\\"+CURRENT_PIC)
             except:
-                return false
+                return False
             resolution = Image.open("Normal\\"+CURRENT_PIC)
             if(resolution.size[0]/resolution.size[1] < 1 and resolution.size[0] < 3000):
                 return False
