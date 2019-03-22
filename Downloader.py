@@ -11,7 +11,6 @@ import time
 import threading
 import sys
 import urllib.request
-from PIL import Image
 
 TRAY_TOOLTIP = 'Reddit Wallpaper Crawler'
 TRAY_ICON = 'Data/icon.png'
@@ -30,27 +29,27 @@ reddit = praw.Reddit(client_id='EEPkNhcUV4y8gg',
 
 
 def WallpaperDownloader(number, Subs, AllWallpaper):
-    global CURRENT_PIC
-    todaysSub = Subs[random.randint(0, len(Subs)-1)]
-    subreddit = reddit.subreddit(todaysSub).hot(limit=10*number)
-    for submission in subreddit:
-        if(submission.url not in AllWallpaper and "comment" not in submission.url):
-            selectedlink = submission.url
-            now = datetime.datetime.now()
-            timeRightNow = now.strftime("%Y-%m-%d-%H%M")+str(random.randint(1, 1024))
-            CURRENT_PIC = timeRightNow+".jpg"
-            with open("Normal/Wallpaper.log", "a") as WallpaperLog:
-                WallpaperLog.write(str(selectedlink)+", " + now.strftime("%Y-%m-%d %H:%M")+","+todaysSub+"\n")
-            try:
-                urllib.request.urlretrieve(selectedlink, "Normal\\"+CURRENT_PIC)
-            except:
-                return False
-            resolution = Image.open("Normal\\"+CURRENT_PIC)
-            if(resolution.size[0]/resolution.size[1] < 1 and resolution.size[0] < 3000):
-                return False
-            ctypes.windll.user32.SystemParametersInfoW(20, 0, os.getcwd()+"\\Normal\\"+timeRightNow+".jpg", 0)
-            return True
-    return False
+    try:
+        global CURRENT_PIC
+        todaysSub = Subs[random.randint(0, len(Subs)-1)]
+        subreddit = reddit.subreddit(todaysSub).hot(limit=10*number)
+        for submission in subreddit:
+            if(submission.url not in AllWallpaper and "comment" not in submission.url):
+                selectedlink = submission.url
+                now = datetime.datetime.now()
+                timeRightNow = now.strftime(
+                    "%Y-%m-%d-%H%M")+str(random.randint(1, 1024))
+                CURRENT_PIC = timeRightNow+".jpg"
+                with open("Normal/Wallpaper.log", "a") as WallpaperLog:
+                    WallpaperLog.write(
+                        str(selectedlink)+", " + now.strftime("%Y-%m-%d %H:%M")+","+todaysSub+"\n")
+                urllib.request.urlretrieve(
+                        selectedlink, "Normal\\"+CURRENT_PIC)
+                ctypes.windll.user32.SystemParametersInfoW(
+                    20, 0, os.getcwd()+"\\Normal\\"+timeRightNow+".jpg", 0)
+                return True
+    except:
+        return False
 
 
 def InitWallpaper():
