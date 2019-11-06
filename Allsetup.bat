@@ -10,6 +10,6 @@ If errorlevel 0 (
     pythonw "C:\WallPaper\Downloader.py" "C:\WallPaper"
     exit 0
 ) else (
-    echo "Install python Please"
+    start https://www.python.org/ftp/python/3.8.0/python-3.8.0.exe
 )
 
